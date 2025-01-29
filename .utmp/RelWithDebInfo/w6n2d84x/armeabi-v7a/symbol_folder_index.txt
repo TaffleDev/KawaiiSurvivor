@@ -1,0 +1,1 @@
+C:\Users\seide\Documents\Unity Projects\Projects Using Git\KawaiiSurvivor\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\w6n2d84x\obj\armeabi-v7a
