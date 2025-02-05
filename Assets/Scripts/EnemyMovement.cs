@@ -15,11 +15,20 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float playerDetectionRadius;
 
+
     [Header("Effects")]
     [SerializeField] ParticleSystem passAwayParticle;
 
+    [Header("Attack")]
+    [SerializeField] int damage;
+    [SerializeField] float attackFrequency;
+    float attackDelay;
+    float attackTimer;
+
     [Header("DEBUG")]
     [SerializeField] bool showGizmos;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -42,8 +51,13 @@ public class EnemyMovement : MonoBehaviour
             .setLoopPingPong(4)
             .setOnComplete(SpawnSequenceCompleted);
 
-
         // Prevent following & attacking during the spawn sequence
+
+
+
+        //Attack time
+        attackDelay = 1f / attackFrequency;
+        Debug.Log("Attack Delay : " + attackDelay);
     }
 
     // Update is called once per frame
@@ -53,9 +67,15 @@ public class EnemyMovement : MonoBehaviour
             return;
 
         FollowPlayer();
-        TryAttack();
 
-        
+
+        if (attackTimer >= attackDelay)
+            TryAttack();
+        else
+            Wait();
+
+
+
     }
     void SpawnSequenceCompleted()
     {
@@ -79,14 +99,27 @@ public class EnemyMovement : MonoBehaviour
 
         transform.position = targetPosition;
     }
+
+    void Wait()
+    {
+        attackTimer += Time.deltaTime;
+    }
+
     private void TryAttack()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
-        if (distanceToPlayer <= playerDetectionRadius)        
-            PassAway();
+        if (distanceToPlayer <= playerDetectionRadius)
+            Attack();
         
     }
+
+    void Attack()
+    {
+        Debug.Log("Dealing " + damage + " damage to the player");
+        attackTimer = 0f;
+    }
+
     void PassAway()
     {
         passAwayParticle.transform.SetParent(null);
