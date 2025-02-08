@@ -7,12 +7,12 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] int maxHealth;
+    [SerializeField] private int maxHealth;
     int health;
 
     [Header("Elements")]
-    [SerializeField] Slider healthSlider;
-    [SerializeField] TextMeshProUGUI healthText;
+    [SerializeField] private Slider healthSlider;
+    [SerializeField] private TextMeshProUGUI healthText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,12 +44,12 @@ public class PlayerHealth : MonoBehaviour
     }
 
 
-    void PassAway()
+    private void PassAway()
     {
         Debug.Log("Dead");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    void UpdateUI()
+    private void UpdateUI()
     {
         float healthBarValue = (float)health / maxHealth;
         healthSlider.value = healthBarValue;

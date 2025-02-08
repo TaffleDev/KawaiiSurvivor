@@ -4,33 +4,33 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("Components")]
-    EnemyMovement enemyMovement;
+    private EnemyMovement enemyMovement;
 
     [Header("Elements")]
-    Player player;
+    private Player player;
 
     [Header("Spawn Dequence Related")]
-    [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] SpriteRenderer spawnIndicator;
-    bool hasSpawned;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer spawnIndicator;
+    private bool hasSpawned;
 
     [Header("Effects")]
-    [SerializeField] ParticleSystem passAwayParticle;
+    [SerializeField] private ParticleSystem passAwayParticle;
 
 
     [Header("Attack")]
-    [SerializeField] int damage;
-    [SerializeField] float attackFrequency;
-    [SerializeField] float playerDetectionRadius;
+    [SerializeField] private int damage;
+    [SerializeField] private float attackFrequency;
+    [SerializeField] private float playerDetectionRadius;
 
-    float attackDelay;
-    float attackTimer;
+    private float attackDelay;
+    private float attackTimer;
 
     [Header("DEBUG")]
-    [SerializeField] bool showGizmos;
+    [SerializeField] private bool showGizmos;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         enemyMovement = GetComponent<EnemyMovement>();
         player = FindFirstObjectByType<Player>();
@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour
             Wait();
     }
 
-    void StartSpawnSequence()
+    private void StartSpawnSequence()
     {
         spriteRenderer.enabled = false;
         spawnIndicator.enabled = true;
@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    void SpawnSequenceCompleted()
+    private void SpawnSequenceCompleted()
     {        
         spriteRenderer.enabled = true;
         spawnIndicator.enabled = false;
@@ -78,14 +78,14 @@ public class Enemy : MonoBehaviour
         enemyMovement.StorePlayer(player);
     }
 
-    void SetRenderersVisibility(bool visibility)
+    private void SetRenderersVisibility(bool visibility)
     {
         spriteRenderer.enabled = visibility;
         spawnIndicator.enabled = !visibility;
     }
-        
 
-    void Wait()
+
+    private void Wait()
     {
         attackTimer += Time.deltaTime;
     }
@@ -99,14 +99,19 @@ public class Enemy : MonoBehaviour
 
     }
 
-    void Attack()
+    private void Attack()
     {
         attackTimer = 0f;
 
         player.TakeDamage(damage);
     }
 
-    void PassAway()
+    public void TakeDamage()
+    {
+
+    }
+
+    private void PassAway()
     {
         passAwayParticle.transform.SetParent(null);
         passAwayParticle.Play();

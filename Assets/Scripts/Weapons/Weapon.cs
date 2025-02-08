@@ -2,16 +2,20 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [Header("Elements")]
+    [SerializeField] private Transform hitDetectionTransform;
+    [SerializeField] private float hitDetectionRadius;
+
     [Header("Settings")]
-    [SerializeField] float range;
-    [SerializeField] LayerMask enemyMask;
+    [SerializeField] private float range;
+    [SerializeField] private LayerMask enemyMask;
 
 
     [Header("Animations")]
-    [SerializeField] float aimLerp;
+    [SerializeField] private float aimLerp;
 
     [Header("DEBUG")]
-    [SerializeField] bool showGizmos;
+    [SerializeField] private bool showGizmos;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -24,6 +28,8 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         AutoAim();
+
+        Attack();
     }  
 
     private void AutoAim()
@@ -38,6 +44,14 @@ public class Weapon : MonoBehaviour
 
         transform.up = Vector3.Lerp(transform.up, targetUpVector, Time.deltaTime * aimLerp);
 
+    }
+
+    private void Attack()
+    {
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(hitDetectionTransform.position, hitDetectionRadius, enemyMask);
+
+        for (int i = 0; i < enemies.Length; i++)
+            Destroy(enemies[i].gameObject);
     }
 
     private Enemy GetClosestEnemy()
@@ -72,7 +86,13 @@ public class Weapon : MonoBehaviour
         if (!showGizmos)
             return;
 
-        Gizmos.color = Color.yellow;
+        Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, range);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(hitDetectionTransform.position, hitDetectionRadius);
     }
+
+
+
 }
