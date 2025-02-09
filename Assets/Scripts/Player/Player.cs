@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Header("Components")]
-    PlayerHealth playerHealth;
+    private PlayerHealth playerHealth;
 
     private void Awake()
     {
