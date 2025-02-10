@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43473032451e4a47b538fbd0d6c7306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 5
   spriteRenderer: {fileID: 4309085305808171398}
   spawnIndicator: {fileID: 3958555149387160041}
   passAwayParticle: {fileID: 4570736118459559299}

@@ -1,10 +1,16 @@
 using UnityEngine;
+using TMPro;
 
 [RequireComponent (typeof(EnemyMovement))]
 public class Enemy : MonoBehaviour
 {
     [Header("Components")]
     private EnemyMovement enemyMovement;
+
+    [Header("Health")]
+    [SerializeField] private int maxHealth;
+    int health;
+
 
     [Header("Elements")]
     private Player player;
@@ -32,8 +38,11 @@ public class Enemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
+        health = maxHealth;
+
         enemyMovement = GetComponent<EnemyMovement>();
         player = FindFirstObjectByType<Player>();
+
 
         if (player == null)
         {
@@ -106,9 +115,14 @@ public class Enemy : MonoBehaviour
         player.TakeDamage(damage);
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
+        int realDamage = Mathf.Min(damage, health);
+        health -= realDamage;
 
+
+        if (health <= 0)
+            PassAway();
     }
 
     private void PassAway()
@@ -127,5 +141,6 @@ public class Enemy : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, playerDetectionRadius);
+
     }
 }
