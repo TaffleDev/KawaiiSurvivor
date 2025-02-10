@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
@@ -17,6 +16,7 @@ public class PlayerHealth : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
         health = maxHealth;
 
         UpdateUI();
