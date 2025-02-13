@@ -68,9 +68,9 @@ public class Enemy : MonoBehaviour
 
     private void StartSpawnSequence()
     {
-        spriteRenderer.enabled = false;
-        spawnIndicator.enabled = true;
-
+        //spriteRenderer.enabled = false;
+        //spawnIndicator.enabled = true;
+        SetRenderersVisibility(false);
         Vector3 targetScale = spawnIndicator.transform.localScale * 1.2f;
         LeanTween.scale(spawnIndicator.gameObject, targetScale, .3f)
             .setLoopPingPong(4)
@@ -79,9 +79,10 @@ public class Enemy : MonoBehaviour
     }
 
     private void SpawnSequenceCompleted()
-    {        
-        spriteRenderer.enabled = true;
-        spawnIndicator.enabled = false;
+    {
+        //spriteRenderer.enabled = true;
+        //spawnIndicator.enabled = false;
+        SetRenderersVisibility(true);
         hasSpawned = true;
 
         enemyMovement.StorePlayer(player);
