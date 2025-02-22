@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 [RequireComponent (typeof(EnemyMovement))]
 public class Enemy : MonoBehaviour
@@ -18,6 +19,7 @@ public class Enemy : MonoBehaviour
     [Header("Spawn Dequence Related")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private SpriteRenderer spawnIndicator;
+    [SerializeField] private Collider2D spriteCollider;
     private bool hasSpawned;
 
     [Header("Effects")]
@@ -31,6 +33,9 @@ public class Enemy : MonoBehaviour
 
     private float attackDelay;
     private float attackTimer;
+
+    [Header("Actions")]
+    public static Action<int, Vector2> onDamageTaken;
 
     [Header("DEBUG")]
     [SerializeField] private bool showGizmos;
@@ -85,6 +90,8 @@ public class Enemy : MonoBehaviour
         SetRenderersVisibility(true);
         hasSpawned = true;
 
+        spriteCollider.enabled = true;
+
         enemyMovement.StorePlayer(player);
     }
 
@@ -121,6 +128,7 @@ public class Enemy : MonoBehaviour
         int realDamage = Mathf.Min(damage, health);
         health -= realDamage;
 
+        onDamageTaken?.Invoke(damage, transform.position);
 
         if (health <= 0)
             PassAway();
