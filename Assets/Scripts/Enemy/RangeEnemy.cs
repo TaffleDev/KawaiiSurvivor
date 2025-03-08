@@ -3,68 +3,29 @@ using UnityEngine;
 
 
 [RequireComponent (typeof(EnemyMovement), typeof(RangeEnemyAttack))]
-public class RangeEnemy : MonoBehaviour
-{
-    [Header("Components")]
-    private EnemyMovement enemyMovement;
-    private RangeEnemyAttack attack;
-
-    [Header("Health")]
-    [SerializeField] private int maxHealth;
-    int health;
-
-
-    [Header("Elements")]
-    private Player player;
-
-    [Header("Spawn Dequence Related")]
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private SpriteRenderer spawnIndicator;
-    [SerializeField] private Collider2D spriteCollider;
-    private bool hasSpawned;
-
-    [Header("Effects")]
-    [SerializeField] private ParticleSystem passAwayParticle;
-
-
-    [Header("Attack")]
-    [SerializeField] private float playerDetectionRadius;
-
-    [Header("Actions")]
-    public static Action<int, Vector2> onDamageTaken;
-
-    [Header("DEBUG")]
-    [SerializeField] private bool showGizmos;
-
+public class RangeEnemy : Enemy
+{    
+    private RangeEnemyAttack attack;  
+    
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
-        health = maxHealth;
-
-        enemyMovement = GetComponent<EnemyMovement>();
+        base.Start();
         attack = GetComponent<RangeEnemyAttack>();
-        player = FindFirstObjectByType<Player>();
 
-        attack.StorePlayer(player);
-
-        if (player == null)
-        {
-            Debug.LogWarning("No player found, auto-destroying...");
-            Destroy(gameObject);
-        }
-
-        StartSpawnSequence();
-
-
+        attack.StorePlayer(player); 
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if (!spriteRenderer.enabled)
+    {   
+        if (!CanAttack())
             return;
 
-        ManageAttack();               
+        ManageAttack();
+
+        transform.localScale = player.transform.position.x > transform.position.x ? Vector3.one : Vector3.one.With(x: -1);
     }
 
     private void ManageAttack()
@@ -75,70 +36,10 @@ public class RangeEnemy : MonoBehaviour
             enemyMovement.FollowPlayer();
         else
             TryAttack();
-    }
-
-    private void StartSpawnSequence()
-    {
-        //spriteRenderer.enabled = false;
-        //spawnIndicator.enabled = true;
-        SetRenderersVisibility(false);
-        Vector3 targetScale = spawnIndicator.transform.localScale * 1.2f;
-        LeanTween.scale(spawnIndicator.gameObject, targetScale, .3f)
-            .setLoopPingPong(4)
-            .setOnComplete(SpawnSequenceCompleted);
-
-    }
-
-    private void SpawnSequenceCompleted()
-    {
-        //spriteRenderer.enabled = true;
-        //spawnIndicator.enabled = false;
-        SetRenderersVisibility(true);
-        hasSpawned = true;
-
-        spriteCollider.enabled = true;
-
-        enemyMovement.StorePlayer(player);
-    }
-
-    private void SetRenderersVisibility(bool visibility)
-    {
-        spriteRenderer.enabled = visibility;
-        spawnIndicator.enabled = !visibility;
     }      
 
     private void TryAttack()
     {
         attack.AutoAim();
-    }   
-
-    public void TakeDamage(int damage)
-    {
-        int realDamage = Mathf.Min(damage, health);
-        health -= realDamage;
-
-        onDamageTaken?.Invoke(damage, transform.position);
-
-        if (health <= 0)
-            PassAway();
-    }
-
-    private void PassAway()
-    {
-        passAwayParticle.transform.SetParent(null);
-        passAwayParticle.Play();
-
-        Destroy(gameObject);
-
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (!showGizmos)
-            return;
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, playerDetectionRadius);
-
-    }
+    }       
 }
