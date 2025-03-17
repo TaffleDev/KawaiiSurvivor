@@ -1,11 +1,11 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class Bullet : MonoBehaviour
 {
-
-
+    
     [Header("Elements")]
     private Rigidbody2D rb2d;
     private Collider2D collider;
@@ -14,6 +14,7 @@ public class Bullet : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float moveSpeed;
     private int damage;
+    private bool isCriticalHit;
     [SerializeField] private LayerMask enemyMask;
     private Enemy target;
 
@@ -50,11 +51,12 @@ public class Bullet : MonoBehaviour
         this.rangeWeapon = rangeWeapon;
     }
 
-    public void Shoot(int damage, Vector2 direction)
+    public void Shoot(int damage, Vector2 direction, bool isCriticalHit)
     {
         //Invoke("Release", 1);
 
         this.damage = damage;
+        this.isCriticalHit = isCriticalHit;
 
         transform.right = direction;
         rb2d.linearVelocity = direction * moveSpeed;
@@ -97,7 +99,7 @@ public class Bullet : MonoBehaviour
 
     private void Attack(Enemy enemy)
     {
-        enemy.TakeDamage(damage);
+        enemy.TakeDamage(damage, isCriticalHit);
     }
 
     private bool IsInLayerMask(int layer, LayerMask layerMask)

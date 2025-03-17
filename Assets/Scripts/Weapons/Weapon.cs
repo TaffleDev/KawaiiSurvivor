@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
+    
+
     [Header("Settings")]
     [SerializeField] private float range;
     [SerializeField] protected LayerMask enemyMask;
@@ -54,6 +56,19 @@ public abstract class Weapon : MonoBehaviour
         }
 
         return closestEnemy;
+    }
+
+    protected int GetDamage(out bool isCriticalHit)
+    {
+        isCriticalHit = false;
+
+        if (Random.Range(0, 101) <= 50)
+        {
+            isCriticalHit = true;
+            return damage * 2;
+        }
+
+        return damage;
     }
 
     private void OnDrawGizmosSelected()

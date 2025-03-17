@@ -26,7 +26,8 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float playerDetectionRadius;
 
     [Header("Actions")]
-    public static Action<int, Vector2> onDamageTaken;
+    public static Action<int, Vector2, bool> onDamageTaken;
+    public static Action<Vector2> onPassedAway;
 
     [Header("DEBUG")]
     [SerializeField] protected bool showGizmos;
@@ -85,12 +86,12 @@ public abstract class Enemy : MonoBehaviour
         spawnIndicator.enabled = !visibility;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool isCriticalHit)
     {
         int realDamage = Mathf.Min(damage, health);
         health -= realDamage;
 
-        onDamageTaken?.Invoke(damage, transform.position);
+        onDamageTaken?.Invoke(damage, transform.position, isCriticalHit);
 
         if (health <= 0)
             PassAway();
@@ -98,6 +99,8 @@ public abstract class Enemy : MonoBehaviour
 
     private void PassAway()
     {
+        onPassedAway?.Invoke(transform.position);
+
         passAwayParticle.transform.SetParent(null);
         passAwayParticle.Play();
 
