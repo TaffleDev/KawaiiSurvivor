@@ -7,6 +7,7 @@ public class DamageText : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private TextMeshPro damageText;
 
+
     public void Animate(int damage, bool isCriticalHit)
     {
         damageText.text = damage.ToString();

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2027181771372845313}
   - component: {fileID: 492980379097263284}
-  - component: {fileID: 7646819513861583558}
+  - component: {fileID: 7049792233049659746}
   m_Layer: 0
-  m_Name: Candy
+  m_Name: Cash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,9 +68,9 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.45}
+  m_Offset: {x: 0, y: 0}
   m_Radius: 0.25
---- !u!114 &7646819513861583558
+--- !u!114 &7049792233049659746
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6236963992659854111}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 002985a57b404b94fb883eeb4eb20c71, type: 3}
+  m_Script: {fileID: 11500000, guid: 79b642af8d3f5f1418a84913196b7712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7785611946369739817
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 3119331451230107712}
   - component: {fileID: 261437427584822541}
   m_Layer: 0
-  m_Name: Candy Renderer
+  m_Name: Cash Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,7 +109,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2027181771372845313}
@@ -158,7 +158,7 @@ SpriteRenderer:
   m_SortingLayerID: -890416993
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3c2657bdc3b522b4d95b1f35023204f6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3ff51a376ea35f4469b714c67eb31319, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
