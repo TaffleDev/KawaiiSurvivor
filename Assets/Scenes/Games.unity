@@ -2155,6 +2155,7 @@ GameObject:
   - component: {fileID: 1058749950}
   - component: {fileID: 1058749956}
   - component: {fileID: 1058749957}
+  - component: {fileID: 1058749959}
   - component: {fileID: 1058749958}
   m_Layer: 7
   m_Name: Dave
@@ -2300,6 +2301,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectableCollider: {fileID: 599390526}
+--- !u!114 &1058749959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058749949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9788866af7351d44f8df18dff19523a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expBar: {fileID: 373726989}
+  levelText: {fileID: 1192933234}
 --- !u!1 &1083006431
 GameObject:
   m_ObjectHideFlags: 0
