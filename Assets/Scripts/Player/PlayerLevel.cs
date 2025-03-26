@@ -10,6 +10,7 @@ public class PlayerLevel : MonoBehaviour
     private int requiredExp;
     private int currentExp;
     private int level;
+    private int levelsEarnedThisWave;
 
     [Header("Visuals")]
     [SerializeField] private Slider expBar;
@@ -62,8 +63,20 @@ public class PlayerLevel : MonoBehaviour
     private void LevelUp()
     {
         level++;
+        levelsEarnedThisWave++;
         currentExp = 0;
         UpdateRequiredExp();
 
+    }
+
+    public bool HasLeveledUp()
+    {
+        if (levelsEarnedThisWave > 0)
+        {
+            levelsEarnedThisWave--;
+            return true;
+        }
+
+        return false;
     }
 }
