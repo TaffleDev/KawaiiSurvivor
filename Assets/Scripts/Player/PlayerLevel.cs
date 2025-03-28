@@ -16,6 +16,9 @@ public class PlayerLevel : MonoBehaviour
     [SerializeField] private Slider expBar;
     [SerializeField] private TextMeshProUGUI levelText;
 
+
+    [Header("DEBUG")]
+    [SerializeField] private bool DEBUG;
     private void Awake()
     {
         Candy.onCollected += CandyCollectedCallBack;
@@ -71,6 +74,10 @@ public class PlayerLevel : MonoBehaviour
 
     public bool HasLeveledUp()
     {
+        //Remove Later, its for debugging the wavetransition window
+        if (DEBUG)
+            return true;    
+
         if (levelsEarnedThisWave > 0)
         {
             levelsEarnedThisWave--;
