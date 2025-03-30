@@ -2,12 +2,12 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour, IPlayerStatsDependency
 {
-    
+    [field: SerializeField] public WeaponDataSO WeaponData {  get; private set; }
 
     [Header("Settings")]
-    [SerializeField] private float range;
+    [SerializeField] protected float range;
     [SerializeField] protected LayerMask enemyMask;
 
     [Header("Attack")]
@@ -17,12 +17,22 @@ public abstract class Weapon : MonoBehaviour
 
     protected float attackTimer;
 
+
+    [Header("Critical")]
+    protected int criticalChance;
+    protected float criticalPercent;
+
     [Header("Animations")]
     [SerializeField] protected float aimLerp;
+
+
+    [Header("Level")]
+    [field: SerializeField] public int level { get; private set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -62,10 +72,10 @@ public abstract class Weapon : MonoBehaviour
     {
         isCriticalHit = false;
 
-        if (Random.Range(0, 101) <= 50)
+        if (Random.Range(0, 101) <= criticalChance)
         {
             isCriticalHit = true;
-            return damage * 2;
+            return Mathf.RoundToInt(damage * criticalPercent);
         }
 
         return damage;
@@ -78,4 +88,22 @@ public abstract class Weapon : MonoBehaviour
                 
     }
 
+    public abstract void UpdateStats(PlayerStatsManager playerStatsManager);
+
+    protected void ConfigureStats()
+    {
+        // If you remove the division at the end you can double the weapon dmg with each level of the weapon
+        float multiplier = 1 + (float)level / 3;
+
+        damage = Mathf.RoundToInt(WeaponData.GetStatValue(Stat.Attack) * multiplier);
+        attackDelay = 1f / (WeaponData.GetStatValue(Stat.AttackSpeed) * multiplier);
+
+        criticalChance = Mathf.RoundToInt(WeaponData.GetStatValue(Stat.CriticalChance) * multiplier);
+        criticalPercent = WeaponData.GetStatValue(Stat.CriticalPercent) * multiplier;
+
+        if (WeaponData.Prefab.GetType() == typeof(RangeWeapon))
+            range = WeaponData.GetStatValue(Stat.Range) * multiplier;
+
+
+    }
 }
