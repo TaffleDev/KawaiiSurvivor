@@ -10,6 +10,7 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
 {
 
     [Header("Elements")]
+    [SerializeField] private PlayerStatsManager playerStatsManager;
     [SerializeField] private UpgradeContainer[] upgradeContainers;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -74,14 +75,17 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
         {
             case Stat.Attack:
                 value = Random.Range(1, 10);
+                buttonString = "+" + value.ToString() + "%";
                 break;
 
             case Stat.AttackSpeed:
                 value = Random.Range(1, 10);
+                buttonString = "+" + value.ToString() + "%";
                 break;
 
             case Stat.CriticalChance:
                 value = Random.Range(1, 10);
+                buttonString = "+" + value.ToString() + "%";
                 break;
 
             case Stat.CriticalPercent:
@@ -91,51 +95,49 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
 
             case Stat.MoveSpeed:
                 value = Random.Range(1, 10);
+                buttonString = "+" + value.ToString() + "%";
                 break;
-
 
             case Stat.MaxHealth:
                 value = Random.Range(1, 5);
                 buttonString = "+" + value;
                 break;
 
-
             case Stat.Range:
                 value = Random.Range(1f, 5f);
                 buttonString = "+" + value.ToString("F2");
                 break;
 
-
             case Stat.HealthRecoverySpeed:
                 value = Random.Range(1, 10);
+                buttonString = "+" + value.ToString() + "%";
                 break;
 
             case Stat.Armor:
                 value = Random.Range(1, 10);
+                buttonString = "+" + value.ToString() + "%";
                 break;
 
             case Stat.Luck:
                 value = Random.Range(1, 10);
+                buttonString = "+" + value.ToString() + "%";
                 break;
 
             case Stat.Dodge:
                 value = Random.Range(1, 10);
+                buttonString = "+" + value.ToString() + "%";
                 break;
 
             case Stat.LifeSteal:
                 value = Random.Range(1, 10);
+                buttonString = "+" + value.ToString() + "%";
                 break;
-
-
-
-
-
 
             default:
                 return () => Debug.Log("Invalid stat");
         }
 
-        return () => Debug.Log("Proccesed");
+        return () => playerStatsManager.AddPlayerStat(stat, value);
 
     }
 }

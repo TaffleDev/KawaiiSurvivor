@@ -1146,6 +1146,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 253095860}
   m_CullTransparentMesh: 1
+--- !u!1 &295219007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 295219008}
+  - component: {fileID: 295219009}
+  m_Layer: 0
+  m_Name: Player Stats Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &295219008
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295219007}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1890283112}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &295219009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295219007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af7f0368ce9f77546bd1a1cdc5c2412e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 28360ac44db1d1a4f8d326210d0fb39e, type: 2}
 --- !u!1 &317598044
 GameObject:
   m_ObjectHideFlags: 0
@@ -3843,6 +3888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6768595755313418f94f68bf8d67cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStatsManager: {fileID: 295219009}
   upgradeContainers:
   - {fileID: 632538461}
   - {fileID: 1602785148}
@@ -4050,7 +4096,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerJoystick: {fileID: 1550550171}
-  moveSpeed: 3
+  baseMoveSpeed: 3
 --- !u!50 &1058749951
 Rigidbody2D:
   serializedVersion: 5
@@ -4158,7 +4204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8984442ff3410e04f8fbad1bf6b2227d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  baseMaxHealth: 5
   healthSlider: {fileID: 465417983}
   healthText: {fileID: 1420586418}
 --- !u!114 &1058749958
@@ -4188,7 +4234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   expBar: {fileID: 373726989}
   levelText: {fileID: 1192933234}
-  DEBUG: 0
+  DEBUG: 1
 --- !u!1 &1083006431
 GameObject:
   m_ObjectHideFlags: 0
@@ -22626,7 +22672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1352323357
 Transform:
   m_ObjectHideFlags: 0
@@ -24694,6 +24740,7 @@ Transform:
   - {fileID: 1904126710}
   - {fileID: 716596851}
   - {fileID: 974950703}
+  - {fileID: 295219008}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1904126709
