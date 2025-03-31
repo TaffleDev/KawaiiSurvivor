@@ -6,10 +6,13 @@ public class WeaponSelectionManager : MonoBehaviour, IGameStateListener
     [Header("Elements")]
     [SerializeField] private Transform containersParent;
     [SerializeField] private WeaponSelectionContainer weaponContainerPrefab;
+    [SerializeField] private PlayerWeapons playerWeapons;
 
 
     [Header("Data")]
     [SerializeField] private WeaponDataSO[] starterWeapons;
+    private WeaponDataSO selectedWeapon;
+    private int initialWeaponLevel;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -28,6 +31,16 @@ public class WeaponSelectionManager : MonoBehaviour, IGameStateListener
     {
         switch (gameState)
         {
+            case GameState.GAME:
+
+                if (selectedWeapon == null)
+                    return;
+
+                playerWeapons.AddWeapons(selectedWeapon, initialWeaponLevel);
+                selectedWeapon = null;
+                initialWeaponLevel = 0;
+                break;
+
             case GameState.WEAPONSELECTION:
                 Configure();
                 break;
@@ -50,7 +63,8 @@ public class WeaponSelectionManager : MonoBehaviour, IGameStateListener
 
         WeaponDataSO weaponData = starterWeapons[Random.Range(0, starterWeapons.Length)];
 
-        int level = Random.Range(0, 5);
+        int level = Random.Range(0, 3);
+        initialWeaponLevel = level;
 
 
         containerInstance.Configure(weaponData.Sprite, weaponData.Name, level);
@@ -61,6 +75,8 @@ public class WeaponSelectionManager : MonoBehaviour, IGameStateListener
 
     private void WeaponSelectedCallback(WeaponSelectionContainer containerInstance, WeaponDataSO weaponData)
     {
+        selectedWeapon = weaponData;
+
         foreach (WeaponSelectionContainer container in containersParent.GetComponentsInChildren<WeaponSelectionContainer>())
         {
             if (container == containerInstance)
