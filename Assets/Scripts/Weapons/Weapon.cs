@@ -27,20 +27,9 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDependency
 
 
     [Header("Level")]
-    [field: SerializeField] public int level { get; private set; }
+    public int level { get; private set; }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }    
-
+    
     protected Enemy GetClosestEnemy()
     {
         Enemy closestEnemy = null;
@@ -92,10 +81,15 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDependency
 
     protected void ConfigureStats()
     {
+        Debug.Log("Weapon Level : " + level);
+
         // If you remove the division at the end you can double the weapon dmg with each level of the weapon
         float multiplier = 1 + (float)level / 3;
 
         damage = Mathf.RoundToInt(WeaponData.GetStatValue(Stat.Attack) * multiplier);
+
+        Debug.Log("Damage : " + damage);
+
         attackDelay = 1f / (WeaponData.GetStatValue(Stat.AttackSpeed) * multiplier);
 
         criticalChance = Mathf.RoundToInt(WeaponData.GetStatValue(Stat.CriticalChance) * multiplier);
@@ -105,5 +99,14 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDependency
             range = WeaponData.GetStatValue(Stat.Range) * multiplier;
 
 
+    }
+
+    public void UpgradeTO(int targetLevel)
+    {
+        level = targetLevel;
+
+        Debug.Log("Weapon Level : " + level);
+
+        ConfigureStats();
     }
 }
