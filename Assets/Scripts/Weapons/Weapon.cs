@@ -89,14 +89,12 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDependency
         criticalPercent     = calculatedStats[Stat.CriticalPercent];
         range               = calculatedStats[Stat.Range];
 
-        Debug.Log("Damage + " + damage);
     }
 
     public void UpgradeTO(int targetLevel)
     {
         level = targetLevel;
 
-        Debug.Log("Weapon Level : " + level);
 
         ConfigureStats();
     }

@@ -54,8 +54,6 @@ public class WaveManager : MonoBehaviour, IGameStateListener
 
     private void StartWave(int waveIndex)
     {
-        Debug.Log("Starting Wave " + waveIndex);
-
         ui.UpdateWaveText("Wave " + (currentWaveIndex + 1) + " / " + waves.Length);
 
         localCounters.Clear();
@@ -93,8 +91,6 @@ public class WaveManager : MonoBehaviour, IGameStateListener
                 Instantiate(segment.prefab, GetSpawnPosition(), Quaternion.identity, transform);
                 localCounters[i]++;
             }
-
-            Debug.Log(currentWave.name);
         }
 
         timer += Time.deltaTime;
@@ -129,7 +125,8 @@ public class WaveManager : MonoBehaviour, IGameStateListener
 
     private void DefeatAllEnemies()
     {
-        transform.Clear();
+        foreach (Enemy enemy in transform.GetComponentsInChildren<Enemy>())
+            enemy.PassAwayAfterWave();
     }
 
     private Vector2 GetSpawnPosition()
