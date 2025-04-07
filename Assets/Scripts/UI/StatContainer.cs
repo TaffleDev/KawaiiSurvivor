@@ -18,4 +18,15 @@ public class StatContainer : MonoBehaviour
         statText.text = statname;
         statValueText.text = statvalue;
     }
+
+    public float GetFontSize()
+    {
+        return statText.fontSize;
+    }
+
+    public void SetFontSize(float fontSize)
+    {
+        statText.fontSizeMax = fontSize;
+        statValueText.fontSizeMax = fontSize;
+    }
 }

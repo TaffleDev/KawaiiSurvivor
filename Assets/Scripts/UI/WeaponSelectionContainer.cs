@@ -14,42 +14,32 @@ public class WeaponSelectionContainer : MonoBehaviour
 
     [Header("Stats")]
     [SerializeField] private Transform statContainersParent;
-    [SerializeField] private StatContainer statContainerPrefab;
-    [SerializeField] private Sprite statIcon;
+    [field: SerializeField] public Button Button { get; private set; }
 
 
     [Header("Colour")]
     [SerializeField] private Image[] levelDependedImages;
 
-    [field: SerializeField] public Button Button { get; private set; }
 
     public void Configure(Sprite sprite, string name, int level, WeaponDataSO weaponData)
     {
         icon.sprite = sprite;
-        nameText.text = name;
+        nameText.text = name + $" (lvl {level + 1})";
 
-        Color imageColor = ColourHolder.GetColour(level);        
+        Color imageColor = ColourHolder.GetColour(level);
+        nameText.color = imageColor;
 
         foreach (Image image in levelDependedImages)
             image.color = imageColor;
 
-
-        ConfigureStatContainers(weaponData);
+        Dictionary<Stat, float> calculatedStats = WeaponStatsCalculator.GetStats(weaponData, level);
+        ConfigureStatContainers(calculatedStats);
 
     }
 
-    private void ConfigureStatContainers(WeaponDataSO weaponData)
+    private void ConfigureStatContainers(Dictionary<Stat, float> calculatedStats)
     {
-        foreach (KeyValuePair<Stat, float> kvp in weaponData.baseStats)
-        {
-            StatContainer containerInstance = Instantiate(statContainerPrefab, statContainersParent);
-
-            Sprite icon = ResourcesManager.GetStatIcon(kvp.Key);
-            string statName = Enums.FormatStatName(kvp.Key);
-            string statValue = kvp.Value.ToString();
-
-            containerInstance.Configure(icon, statName, statValue);
-        }
+        StatContainerManager.GenerateStatContainers(calculatedStats, statContainersParent);
     }
 
     public void Slect()

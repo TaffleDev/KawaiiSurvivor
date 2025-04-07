@@ -81,24 +81,15 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDependency
 
     protected void ConfigureStats()
     {
-        Debug.Log("Weapon Level : " + level);
+        Dictionary<Stat, float> calculatedStats = WeaponStatsCalculator.GetStats(WeaponData, level);
 
-        // If you remove the division at the end you can double the weapon dmg with each level of the weapon
-        float multiplier = 1 + (float)level / 3;
+        damage              = Mathf.RoundToInt(calculatedStats[Stat.Attack]);
+        attackDelay         = 1f / calculatedStats[Stat.AttackSpeed];
+        criticalChance      = Mathf.RoundToInt(calculatedStats[Stat.CriticalChance]);
+        criticalPercent     = calculatedStats[Stat.CriticalPercent];
+        range               = calculatedStats[Stat.Range];
 
-        damage = Mathf.RoundToInt(WeaponData.GetStatValue(Stat.Attack) * multiplier);
-
-        Debug.Log("Damage : " + damage);
-
-        attackDelay = 1f / (WeaponData.GetStatValue(Stat.AttackSpeed) * multiplier);
-
-        criticalChance = Mathf.RoundToInt(WeaponData.GetStatValue(Stat.CriticalChance) * multiplier);
-        criticalPercent = WeaponData.GetStatValue(Stat.CriticalPercent) * multiplier;
-
-        if (WeaponData.Prefab.GetType() == typeof(RangeWeapon))
-            range = WeaponData.GetStatValue(Stat.Range) * multiplier;
-
-
+        Debug.Log("Damage + " + damage);
     }
 
     public void UpgradeTO(int targetLevel)
