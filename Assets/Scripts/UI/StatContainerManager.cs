@@ -27,8 +27,7 @@ public class StatContainerManager : MonoBehaviour
 
             Sprite icon = ResourcesManager.GetStatIcon(kvp.Key);
             string statName = Enums.FormatStatName(kvp.Key);
-            // Remove or change the F2 Comment in ToString to control the decimals 
-            string statValue = kvp.Value.ToString("F2");
+            float statValue = kvp.Value;
 
             containerInstance.Configure(icon, statName, statValue);
         }

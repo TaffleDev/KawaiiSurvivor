@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf7ae80478e4a174caa907edda429f42, type: 3}
-  m_Name: Chatacter Data
+  m_Name: Dave
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Dave
   <Sprite>k__BackingField: {fileID: 21300000, guid: 95cd4e99917ba734bafe9d543625fe72, type: 3}

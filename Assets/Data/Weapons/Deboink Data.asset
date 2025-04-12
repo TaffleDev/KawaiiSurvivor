@@ -20,4 +20,4 @@ MonoBehaviour:
   attackSpeed: 3
   criticalChance: 10
   criticalPercent: 1.5
-  range: 0
+  range: 3

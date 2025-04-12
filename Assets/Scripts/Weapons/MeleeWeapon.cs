@@ -18,8 +18,8 @@ public class MeleeWeapon : Weapon
     [Header("Settings")]
     private List<Enemy> damagedEnemies = new List<Enemy>();
 
-    [Header("DEBUG")]
-    [SerializeField] private bool showGizmos;
+    //[Header("DEBUG")]
+    //[SerializeField] private bool showGizmos;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
