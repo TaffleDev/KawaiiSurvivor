@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class CurrencyManager : MonoBehaviour
 {
@@ -7,6 +8,12 @@ public class CurrencyManager : MonoBehaviour
 
     [Header("Elements")]
     [field: SerializeField] public int Currency { get; private set; }
+
+
+
+    [Header("Actions")]
+    public static Action onUpdated;
+
 
     private void Awake()
     {
@@ -28,12 +35,21 @@ public class CurrencyManager : MonoBehaviour
         
     }
 
+    [NaughtyAttributes.Button]
+    private void Add500Currency()
+    {
+        AddCurrency(500);
+    }
+
     public void AddCurrency(int amout)
     {
         Currency += amout;
         UpdateText();
+
+        onUpdated?.Invoke();
     }
 
+    public void UseCurrency(int price) => AddCurrency(-price);
     private void UpdateText()
     {
         CurrencyText[] currencyTexts = FindObjectsByType<CurrencyText>(FindObjectsInactive.Include, FindObjectsSortMode.None);
@@ -42,5 +58,10 @@ public class CurrencyManager : MonoBehaviour
         {
             text.UpdateText(Currency.ToString());
         }
+    }
+
+    public bool HasEnoughCurrency(int price)
+    {
+        return Currency >= price;
     }
 }

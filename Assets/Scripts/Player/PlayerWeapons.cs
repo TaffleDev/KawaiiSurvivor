@@ -17,11 +17,27 @@ public class PlayerWeapons : MonoBehaviour
     {
         
     }
+        
 
-    public void AddWeapons(WeaponDataSO selectedWeapon, int weaponLevel)
+    public bool TryAddWeapon(WeaponDataSO weapon, int level)
     {
-        //Debug.Log("We're Selected " + selectedWeapon.Name + " with level : " + weaponLevel);
-        weaponPositions[Random.Range(0, weaponPositions.Length)].AssignWeapon(selectedWeapon.Prefab, weaponLevel);
+        if (weaponPositions == null)
+        {
+            Debug.LogError("Weapon Position Array is null");
+            return false;
+        }
 
+
+        for (int i = 0; i < weaponPositions.Length; i++)
+        {
+            if (weaponPositions[i].Weapon != null)
+                continue;
+
+            weaponPositions[i].AssignWeapon(weapon.Prefab, level);
+            return true;
+
+        }
+
+        return false;
     }
 }
