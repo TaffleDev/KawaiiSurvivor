@@ -36,7 +36,7 @@ public static class Enums
         
         
         if (unformatedString.Length <= 0)
-            return "Unvalid Stat name";
+            return "Invalid Stat name";
 
         formated += unformatedString[0];
 

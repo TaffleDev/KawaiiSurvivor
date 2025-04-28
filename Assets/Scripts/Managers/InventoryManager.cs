@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour, IGameStateListener
 {
-
+    
     [Header("Player Components")]
     [SerializeField] private PlayerWeapons playerWeapons;
     [SerializeField] private PlayerObjects playerObjects;
@@ -10,7 +10,8 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
     [Header("Elements")]
     [SerializeField] private Transform inventoryItemsParent;
     [SerializeField] private InventoryItemContainer inventoryItemContainer;
-
+    [SerializeField] private ShopManagerUI shopManagerUI;
+    [SerializeField] private InventoryItemInfo itemInfo;
     
 
 
@@ -34,18 +35,14 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
     private void Configure()
     {
         inventoryItemsParent.Clear();
-        //Player Weapons / Player Objects
 
+        //Player Weapons / Player Objects
         Weapon[] weapons = playerWeapons.GetWeapons();
 
         for (int i = 0; i < weapons.Length; i++)
         {
             InventoryItemContainer container = Instantiate(inventoryItemContainer, inventoryItemsParent);
-
-            Color containerColor = ColourHolder.GetColour(weapons[i].level);
-            Sprite icon = weapons[i].WeaponData.Sprite;
-
-            container.Configure(containerColor, icon);
+            container.Configure(weapons[i], () => ShowItemInfo(container));
         }
 
         
@@ -55,12 +52,34 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
         for (int i = 0; i < objectDatas.Length; i++)
         {
             InventoryItemContainer container = Instantiate(inventoryItemContainer, inventoryItemsParent);
-
-            Color containerColor = ColourHolder.GetColour(objectDatas[i].Rarity);
-            Sprite icon = objectDatas[i].Icon;
-
-            container.Configure(containerColor, icon);
+            container.Configure(objectDatas[i], () => ShowItemInfo(container));
         }
 
+    }
+
+    private void ShowItemInfo(InventoryItemContainer container)
+    {
+        if (container.Weapon != null)
+            ShowWeaponInfo(container.Weapon);
+        else 
+            ShowObjectInfo(container.ObjectData);
+
+        
+    }
+    
+    
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    private void ShowWeaponInfo(Weapon weapon)
+    {
+        itemInfo.Configure(weapon);
+        shopManagerUI.ShowItemInfo();
+    }
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    private void ShowObjectInfo(ObjectDataSO objectData)
+    {
+        itemInfo.Configure(objectData);
+        shopManagerUI.ShowItemInfo();
     }
 }
