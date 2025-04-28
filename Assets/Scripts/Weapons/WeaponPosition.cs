@@ -14,4 +14,10 @@ public class WeaponPosition : MonoBehaviour
 
         Weapon.UpgradeTO(weaponLevel);
     }
+
+    public void RemoveWeapon()
+    {
+        Destroy(Weapon.gameObject);
+        Weapon = null;
+    }
 }

@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
+using Random = UnityEngine.Random;
 public class ShopManager : MonoBehaviour, IGameStateListener
 {
 
@@ -11,16 +13,19 @@ public class ShopManager : MonoBehaviour, IGameStateListener
     [SerializeField] private ShopItemContainer shopItemContainerPrefab;
 
 
-    [Header("Player Componetns")]
+    [Header("Player Components")]
     [SerializeField] private PlayerWeapons playerWeapons;
     [SerializeField] private PlayerObjects playerObjects;
 
 
-    [Header("Reoll")]
+    [Header("Reroll")]
     [SerializeField] private Button rerollButton;
     [SerializeField] private int rerollPrice;
     [SerializeField] private TextMeshProUGUI rerollPriceText;
 
+    [Header("Actions")] 
+    public static Action onItemPurchased;
+    
     private void Awake()
     {
         ShopItemContainer.onPurchased += ItemPurchasedcallback;
@@ -84,8 +89,8 @@ public class ShopManager : MonoBehaviour, IGameStateListener
         for (int i = 0; i < weaponContainerCount; i++)
         {
             ShopItemContainer weaponContainerInstance = Instantiate(shopItemContainerPrefab, containersParent);
-            WeaponDataSO randonWeaon = ResourcesManager.GetRandomWeapon();
-            weaponContainerInstance.Configure(randonWeaon, Random.Range(0, 2));
+            WeaponDataSO randomWeapon = ResourcesManager.GetRandomWeapon();
+            weaponContainerInstance.Configure(randomWeapon, Random.Range(0, 2));
         }
 
         for (int i = 0; i < objectContainerCount; i++)
@@ -138,6 +143,8 @@ public class ShopManager : MonoBehaviour, IGameStateListener
 
             Destroy(container.gameObject);
         }
+
+        onItemPurchased?.Invoke();
     }
 
     private void PurchaseObject(ShopItemContainer container)
@@ -147,5 +154,8 @@ public class ShopManager : MonoBehaviour, IGameStateListener
         CurrencyManager.instance.UseCurrency(container.ObjectData.Price);
 
         Destroy(container.gameObject);
+        
+        onItemPurchased?.Invoke();
+
     }
 }

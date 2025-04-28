@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour, IGameStateListener
@@ -12,20 +13,22 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
     [SerializeField] private InventoryItemContainer inventoryItemContainer;
     [SerializeField] private ShopManagerUI shopManagerUI;
     [SerializeField] private InventoryItemInfo itemInfo;
+
+    private void Awake()
+    {
+        ShopManager.onItemPurchased += ItemPurchasedCallBack;
+        WeaponMerger.onMerge += WeaponMergedCallback;
+    }
+
+    private void OnDestroy()
+    {
+        ShopManager.onItemPurchased -= ItemPurchasedCallBack;
+        WeaponMerger.onMerge -= WeaponMergedCallback;
+    }
+
     
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void GameStateChangedCallBack(GameState gameState)
     {
         if (gameState == GameState.SHOP)
@@ -41,8 +44,11 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
 
         for (int i = 0; i < weapons.Length; i++)
         {
+            if (weapons[i] == null)
+                continue;
+            
             InventoryItemContainer container = Instantiate(inventoryItemContainer, inventoryItemsParent);
-            container.Configure(weapons[i], () => ShowItemInfo(container));
+            container.Configure(weapons[i], i, () => ShowItemInfo(container));
         }
 
         
@@ -60,26 +66,61 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
     private void ShowItemInfo(InventoryItemContainer container)
     {
         if (container.Weapon != null)
-            ShowWeaponInfo(container.Weapon);
+            ShowWeaponInfo(container.Weapon, container.Index);
         else 
             ShowObjectInfo(container.ObjectData);
+    }
+    
+    
 
+    private void ShowWeaponInfo(Weapon weapon, int index)
+    {
+        itemInfo.Configure(weapon);
+        
+        itemInfo.RecycleButton.onClick.RemoveAllListeners();
+        itemInfo.RecycleButton.onClick.AddListener(() => RecycleWeapon(index));
+        
+        shopManagerUI.ShowItemInfo();
+    }
+    
+    private void RecycleWeapon(int index)
+    {
+        playerWeapons.RecycleWeapons(index);
+        
+        Configure();
+        
+        shopManagerUI.HideItemInfo();
+        
         
     }
     
-    
-
-    // ReSharper disable Unity.PerformanceAnalysis
-    private void ShowWeaponInfo(Weapon weapon)
-    {
-        itemInfo.Configure(weapon);
-        shopManagerUI.ShowItemInfo();
-    }
-
-    // ReSharper disable Unity.PerformanceAnalysis
     private void ShowObjectInfo(ObjectDataSO objectData)
     {
         itemInfo.Configure(objectData);
+        
+        itemInfo.RecycleButton.onClick.RemoveAllListeners();
+        itemInfo.RecycleButton.onClick.AddListener(() => RecycleObject(objectData));
+        
         shopManagerUI.ShowItemInfo();
     }
+
+    private void RecycleObject(ObjectDataSO objectToRecycle)
+    {
+        playerObjects.RecycleObjects(objectToRecycle);
+        
+        Configure();
+        
+        shopManagerUI.HideItemInfo();
+    }
+
+    
+
+    private void ItemPurchasedCallBack() => Configure();
+    
+    private void WeaponMergedCallback(Weapon mergedWeapon)
+    {
+        Configure();
+        itemInfo.Configure(mergedWeapon);
+    }
+
 }

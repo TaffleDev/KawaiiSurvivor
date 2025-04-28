@@ -27,7 +27,7 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDependency
 
 
     [Header("Level")]
-    public int level { get; private set; }
+    public int Level { get; private set; }
 
     
     protected Enemy GetClosestEnemy()
@@ -81,7 +81,7 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDependency
 
     protected void ConfigureStats()
     {
-        Dictionary<Stat, float> calculatedStats = WeaponStatsCalculator.GetStats(WeaponData, level);
+        Dictionary<Stat, float> calculatedStats = WeaponStatsCalculator.GetStats(WeaponData, Level);
 
         damage              = Mathf.RoundToInt(calculatedStats[Stat.Attack]);
         attackDelay         = 1f / calculatedStats[Stat.AttackSpeed];
@@ -93,9 +93,17 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDependency
 
     public void UpgradeTO(int targetLevel)
     {
-        level = targetLevel;
+        Level = targetLevel;
 
 
         ConfigureStats();
     }
+
+    public int GetRecyclePrice()
+    {
+        return WeaponStatsCalculator.GetRecyclePrice(WeaponData, Level);
+    }
+
+    public void Upgrade() => UpgradeTO(Level + 1);
+    
 }
