@@ -10,6 +10,7 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
 
     [Header("Elements")]
     [SerializeField] private Transform inventoryItemsParent;
+    [SerializeField] private Transform pauseInventoryItemsParent;
     [SerializeField] private InventoryItemContainer inventoryItemContainer;
     [SerializeField] private ShopManagerUI shopManagerUI;
     [SerializeField] private InventoryItemInfo itemInfo;
@@ -18,12 +19,16 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
     {
         ShopManager.onItemPurchased += ItemPurchasedCallBack;
         WeaponMerger.onMerge += WeaponMergedCallback;
+
+        GameManager.onGamePaused += Configure;
     }
 
     private void OnDestroy()
     {
         ShopManager.onItemPurchased -= ItemPurchasedCallBack;
         WeaponMerger.onMerge -= WeaponMergedCallback;
+        
+        GameManager.onGamePaused -= Configure;
     }
 
     
@@ -38,7 +43,7 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
     private void Configure()
     {
         inventoryItemsParent.Clear();
-
+        pauseInventoryItemsParent.Clear();
         //Player Weapons / Player Objects
         Weapon[] weapons = playerWeapons.GetWeapons();
 
@@ -49,8 +54,10 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
             
             InventoryItemContainer container = Instantiate(inventoryItemContainer, inventoryItemsParent);
             container.Configure(weapons[i], i, () => ShowItemInfo(container));
+            
+            InventoryItemContainer pauseContainer = Instantiate(inventoryItemContainer, pauseInventoryItemsParent);
+            pauseContainer.Configure(weapons[i], i, null);
         }
-
         
 
         ObjectDataSO[] objectDatas = playerObjects.Objects.ToArray();
@@ -59,6 +66,9 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
         {
             InventoryItemContainer container = Instantiate(inventoryItemContainer, inventoryItemsParent);
             container.Configure(objectDatas[i], () => ShowItemInfo(container));
+            
+            InventoryItemContainer pauseContainer = Instantiate(inventoryItemContainer, pauseInventoryItemsParent);
+            pauseContainer.Configure(objectDatas[i], null);
         }
 
     }
@@ -112,8 +122,6 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
         
         shopManagerUI.HideItemInfo();
     }
-
-    
 
     private void ItemPurchasedCallBack() => Configure();
     

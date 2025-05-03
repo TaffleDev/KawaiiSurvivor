@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
@@ -8,6 +9,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    [Header("Action")]
+    public static Action onGamePaused;
+    public static Action onGameResumed;
+    
     private void Awake()
     {
         if (instance == null)
@@ -54,6 +59,25 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    public void PauseButtonCallBack()
+    {
+        Time.timeScale = 0;
+        onGamePaused?.Invoke();
+    }
+
+    public void ResumeButtonCallBack()
+    {
+        Time.timeScale = 1;
+        onGameResumed?.Invoke();
+    }
+
+    public void RestartFromPause()
+    {
+        Time.timeScale = 1;
+        ManageGameover();
+    }
+    
 }
 
 public interface IGameStateListener

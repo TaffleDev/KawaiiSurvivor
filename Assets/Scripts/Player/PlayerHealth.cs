@@ -61,10 +61,10 @@ public class PlayerHealth : MonoBehaviour, IPlayerStatsDependency
     void Update()
     {
         if (health < maxHealth)
-            Recoverhealth();
+            RecoverHealth();
     }
 
-    private void Recoverhealth()
+    private void RecoverHealth()
     {
         healthRecoveryTimer += Time.deltaTime;
         

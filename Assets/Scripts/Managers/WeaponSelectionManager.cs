@@ -81,7 +81,7 @@ public class WeaponSelectionManager : MonoBehaviour, IGameStateListener
         foreach (WeaponSelectionContainer container in containersParent.GetComponentsInChildren<WeaponSelectionContainer>())
         {
             if (container == containerInstance)
-                container.Slect();
+                container.Select();
             else
                 container.Deselect();
         }
