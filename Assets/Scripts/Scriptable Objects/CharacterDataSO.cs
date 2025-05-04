@@ -3,7 +3,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "Chatacter Data", menuName = "Scriptable Objects/New Chartacter Data", order = 0)]
-public class ChatacterDataSO : ScriptableObject
+public class CharacterDataSO : ScriptableObject
 {
     [field: SerializeField] public string Name {  get; private set; }
     [field: SerializeField] public Sprite Sprite { get; private set; }
@@ -25,7 +25,7 @@ public class ChatacterDataSO : ScriptableObject
     [SerializeField] private float lifeSteal;
 
 
-    public Dictionary<Stat, float> baseStats 
+    public Dictionary<Stat, float> BaseStats 
     {
         get
         {
@@ -45,6 +45,23 @@ public class ChatacterDataSO : ScriptableObject
                 {Stat.LifeSteal,            lifeSteal },
             };
         } 
+        private set { }
+    }
+
+    public Dictionary<Stat, float> NonNeutralStats
+    {
+        get
+        {
+            Dictionary<Stat, float> nonNeutralStats = new Dictionary<Stat, float>();
+
+            foreach (KeyValuePair<Stat, float> kvp in BaseStats)
+            {
+                if (kvp.Value != 0)
+                    nonNeutralStats.Add(kvp.Key, kvp.Value);
+            }
+            return nonNeutralStats;
+        }
+
         private set { }
     }
 }

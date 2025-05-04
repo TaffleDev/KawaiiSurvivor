@@ -14756,6 +14756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCollider: {fileID: 1058749955}
+  playerRenderer: {fileID: 1097060482}
 --- !u!114 &1058749957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44381,6 +44382,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1975504562}
   - component: {fileID: 1975504563}
+  - component: {fileID: 1975504564}
   m_Layer: 0
   m_Name: Character Selection Manager
   m_TagString: Untagged
@@ -44418,6 +44420,24 @@ MonoBehaviour:
   characterSelectionParent: {fileID: 1428480635}
   characterSelectionPrefab: {fileID: 953085543610932521, guid: 0c47bf657b9513543a68be8d43db6107, type: 3}
   centerCharacterImage: {fileID: 477457636}
+  characterInfo: {fileID: 1975504564}
+--- !u!114 &1975504564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975504561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d9b9545bfb99f44b231dae6b253141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 4485107685830700693}
+  priceText: {fileID: 7148845775079677476}
+  priceContainer: {fileID: 1847619894216811789}
+  statsParent: {fileID: 3248669425545630242}
+  <Button>k__BackingField: {fileID: 2223352184369276192}
 --- !u!224 &1983613602 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8235543348937295994, guid: b6c8c83f87c5c9949959536b0e27068f, type: 3}
@@ -47586,7 +47606,7 @@ GameObject:
   - component: {fileID: 4049301376649943508}
   - component: {fileID: 4485107685830700693}
   m_Layer: 5
-  m_Name: Item Name Text
+  m_Name: Character Name Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48012,7 +48032,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -53975,7 +53995,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.32764074, g: 0.32395872, b: 0.754717, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

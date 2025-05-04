@@ -8,7 +8,7 @@ public class PlayerStatsManager : MonoBehaviour
 {
 
     [Header("Data")]
-    [SerializeField] private ChatacterDataSO playerData;
+    [SerializeField] private CharacterDataSO playerData;
 
     [Header(" Settings")]
     private Dictionary<Stat, float> playerStats = new Dictionary<Stat, float>();
@@ -17,13 +17,21 @@ public class PlayerStatsManager : MonoBehaviour
 
     private void Awake()
     {
-        playerStats = playerData.baseStats;
+        CharacterSelectionManager.OnCharacterSelected += CharacterSelectedCallback;
+        
+        playerStats = playerData.BaseStats;
 
         foreach (KeyValuePair<Stat, float> kvp in playerStats)
         {
             addends.Add(kvp.Key, 0);
             objectAddends.Add(kvp.Key, 0);
         }
+    }
+
+    private void OnDestroy()
+    {
+        CharacterSelectionManager.OnCharacterSelected -= CharacterSelectedCallback;
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -70,6 +78,14 @@ public class PlayerStatsManager : MonoBehaviour
 
         foreach (IPlayerStatsDependency dependency in playerStatsDependencies)
             dependency.UpdateStats(this);
+    }
+    
+    private void CharacterSelectedCallback(CharacterDataSO characterData)
+    {
+        playerData = characterData;
+        playerStats = playerData.BaseStats;
+        
+        UpdatePlayerStats();
     }
 }
 

@@ -73,14 +73,14 @@ public static class ResourcesManager
     
     
     
-    private static ChatacterDataSO[] characterDatas;
-    public static ChatacterDataSO[] Characters
+    private static CharacterDataSO[] characterDatas;
+    public static CharacterDataSO[] Characters
     {
         get
         {
             if (characterDatas == null)
             {
-                characterDatas = Resources.LoadAll<ChatacterDataSO>(characterDataPath);
+                characterDatas = Resources.LoadAll<CharacterDataSO>(characterDataPath);
             }
 
             return characterDatas;

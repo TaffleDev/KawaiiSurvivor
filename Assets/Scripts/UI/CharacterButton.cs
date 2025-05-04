@@ -17,10 +17,26 @@ public class CharacterButton : MonoBehaviour
         
         private set{}
     }
-    public void Configure(Sprite characterIcon)
+    public void Configure(Sprite characterIcon, bool unlocked)
     {
         characterImage.sprite = characterIcon;
         
-        
+        if (unlocked)
+            Unlock();
+        else 
+            Lock();
+    }
+
+    public void Lock()
+    {
+        lockObject.SetActive(true);
+        characterImage.color = Color.grey;
+
+    }
+    
+    public void Unlock()
+    {
+        lockObject.SetActive(false);
+        characterImage.color = Color.white;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -8,6 +9,7 @@ public class Player : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private CircleCollider2D playerCollider;
+    [SerializeField] private SpriteRenderer playerRenderer;
     private PlayerHealth playerHealth;
     private PlayerLevel  playerLevel;
 
@@ -20,6 +22,17 @@ public class Player : MonoBehaviour
 
         playerHealth = GetComponent<PlayerHealth>();
         playerLevel  = GetComponent<PlayerLevel>();
+        
+        CharacterSelectionManager.OnCharacterSelected += CharacterSelectedCallback;
+
+    }
+
+    
+
+    private void OnDestroy()
+    {
+        CharacterSelectionManager.OnCharacterSelected -= CharacterSelectedCallback;
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -47,5 +60,10 @@ public class Player : MonoBehaviour
     public bool HasLeveledUp()
     {
         return playerLevel.HasLeveledUp();
+    }
+    
+    private void CharacterSelectedCallback(CharacterDataSO characterData)
+    {
+        playerRenderer.sprite = characterData.Sprite;
     }
 }
