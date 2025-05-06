@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour, IGameStateListener
     
     [SerializeField] private GameObject restartConfirmationPanel;
     [SerializeField] private GameObject characterSelectionPanel;
+    [SerializeField] private GameObject settingsPanel;
 
     
     
@@ -43,7 +44,7 @@ public class UIManager : MonoBehaviour, IGameStateListener
         pausePanel.SetActive(false);
         HideRestartConfirmationPanel();
         HideCharacterSelectionPanel();
-        
+        HideSettings();
     }
 
     private void OnDestroy()
@@ -114,7 +115,8 @@ public class UIManager : MonoBehaviour, IGameStateListener
     public void ShowCharacterSelectionPanel() => characterSelectionPanel.SetActive(true);
     public void HideCharacterSelectionPanel() => characterSelectionPanel.SetActive(false);
 
-    
+    public void ShowSettings() => settingsPanel.SetActive(true);
+    public void HideSettings() => settingsPanel.SetActive(false);
 
     
     
