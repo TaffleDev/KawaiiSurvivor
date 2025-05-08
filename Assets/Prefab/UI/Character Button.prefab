@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4106544474155010403}
   - component: {fileID: 6534542147064418674}
   - component: {fileID: 953085543610932521}
+  - component: {fileID: -2445097201054258101}
   m_Layer: 5
   m_Name: Character Button
   m_TagString: Untagged
@@ -137,6 +138,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterImage: {fileID: 1667146317418050393}
   lockObject: {fileID: 8408759823006196567}
+--- !u!114 &-2445097201054258101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4813473055314807588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81a8b40fa66b084f91f0dd3acd1174e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5060574119643680172
 GameObject:
   m_ObjectHideFlags: 0
