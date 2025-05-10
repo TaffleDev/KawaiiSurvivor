@@ -5,6 +5,8 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
+
+using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -12,6 +14,7 @@ public class GameManager : MonoBehaviour
     [Header("Action")]
     public static Action onGamePaused;
     public static Action onGameResumed;
+    
     
     private void Awake()
     {
@@ -27,6 +30,8 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         SetGameState(GameState.MENU);
     }
+    
+    
 
     public void StartGame()            => SetGameState(GameState.GAME);
     public void StartWeaponSelection() => SetGameState(GameState.WEAPONSELECTION);

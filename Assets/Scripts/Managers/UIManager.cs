@@ -59,6 +59,7 @@ public class UIManager : MonoBehaviour, IGameStateListener
         {
             case GameState.MENU:
                 ShowPanel(menuPanel);
+                AudioManager.instance.PlayMenuMusic();
                 break;
 
             case GameState.WEAPONSELECTION:
@@ -67,6 +68,7 @@ public class UIManager : MonoBehaviour, IGameStateListener
 
             case GameState.GAME:
                 ShowPanel(gamePanel);
+                AudioManager.instance.PlayGameMusic();
                 break;
 
             case GameState.GAMEOVER:

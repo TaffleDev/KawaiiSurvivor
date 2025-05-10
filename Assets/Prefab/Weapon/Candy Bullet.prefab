@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 7568097363661345193}
   - component: {fileID: 4535561411561568867}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Candy Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,6 +1,8 @@
+using System;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public abstract class Weapon : MonoBehaviour, IPlayerStatsDependency
 {
@@ -29,7 +31,27 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDependency
     [Header("Level")]
     public int Level { get; private set; }
 
-    
+    [Header("Audio")]
+    protected AudioSource audioSource;
+
+    protected void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.clip = WeaponData.AttackSound;
+        if (animator != null && WeaponData.AnimatorOverride != null)
+            animator.runtimeAnimatorController = WeaponData.AnimatorOverride;
+    }
+
+    protected void PlayAttackSound()
+    {
+        if(!AudioManager.instance.isSFXOn)
+            return;
+        
+        audioSource.pitch = Random.Range(.95f, 1.05f);
+        audioSource.Play();
+    }
+
     protected Enemy GetClosestEnemy()
     {
         Enemy closestEnemy = null;

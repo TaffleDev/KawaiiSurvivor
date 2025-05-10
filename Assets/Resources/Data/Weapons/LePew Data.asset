@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f52665cbee0c62d4ba59053056d2b467, type: 3}
+  m_Name: LePew Data
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: LePew
+  <Sprite>k__BackingField: {fileID: -2774315149639988039, guid: 6ba2bdba88302454a9f673c897dc6631, type: 3}
+  <PurchasePrice>k__BackingField: 125
+  <RecyclePrice>k__BackingField: 100
+  <Prefab>k__BackingField: {fileID: 2325611508631366115, guid: 470c1f134ac7ac94fb6ff116d0801230, type: 3}
+  <AttackSound>k__BackingField: {fileID: 8300000, guid: f7bdbeca28170df478ac865f6729a5e2, type: 3}
+  <AnimatorOverride>k__BackingField: {fileID: 0}
+  attack: 10
+  attackSpeed: 5
+  criticalChance: 5
+  criticalPercent: 1.5
+  range: 4

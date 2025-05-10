@@ -43,15 +43,23 @@ public class SettingsManager : MonoBehaviour, IWantToBeSaved
         
         creditsButton.onClick.RemoveAllListeners();
         creditsButton.onClick.AddListener(CreditsButtonCallback);
+
+
+        OnMusicStateChanged += AudioManager.instance.MusicStateChangedCallback;
     }
 
-    
+    private void OnDestroy()
+    {
+        OnMusicStateChanged -= AudioManager.instance.MusicStateChangedCallback;
+    }
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         HideCreditsPanel();
+        OnSFXStateChanged?.Invoke(sfxState);
+        OnMusicStateChanged?.Invoke(musicState);
     }
 
     // Update is called once per frame
