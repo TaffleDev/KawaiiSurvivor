@@ -11,6 +11,7 @@ public class EnemyBullet : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float angularSpeed; 
     private int damage;
 
     private void Awake()
@@ -20,27 +21,17 @@ public class EnemyBullet : MonoBehaviour
 
 
         ////Despawns bullet after 5 seconds
-        //LeanTween.delayedCall(gameObject, 5, () => rangeEnemyAttack.ReleaseBullet(this));
-        StartCoroutine(ReleaseCoroutine());
+        LeanTween.delayedCall(gameObject, 5, () => rangeEnemyAttack.ReleaseBullet(this));
+        // StartCoroutine(ReleaseCoroutine());
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    // Also despawns bullet just without using LeanTweens
-    IEnumerator ReleaseCoroutine()
-    {
-        yield return new WaitForSeconds(5);
-
-        rangeEnemyAttack.ReleaseBullet(this);
-    }
+    // Despawns bullet the same way as Leantween, just using Coroutine
+    // IEnumerator ReleaseCoroutine()
+    // {
+    //     yield return new WaitForSeconds(5);
+    //
+    //     rangeEnemyAttack.ReleaseBullet(this);
+    // }
 
     public void Configure(RangeEnemyAttack rangeEnemyAttack)
     {
@@ -51,16 +42,22 @@ public class EnemyBullet : MonoBehaviour
     {
         this.damage = damage;
 
+        // The left most star is changing a rotation direction and this fixes that.
+        if (Mathf.Abs(direction.x + 1) < 0.01f)
+            direction.y += .01f;
+
         transform.right = direction;
         rb2d.linearVelocity = direction * moveSpeed;
+        
+        rb2d.angularVelocity = angularSpeed;
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.TryGetComponent(out Player player))
         {
-            //LeanTween.cancel(gameObject);
-            StopCoroutine(ReleaseCoroutine());
+            LeanTween.cancel(gameObject);
+            // StopCoroutine(ReleaseCoroutine());
 
 
             player.TakeDamage(damage);
@@ -73,6 +70,13 @@ public class EnemyBullet : MonoBehaviour
     public void Reload()
     {
         rb2d.linearVelocity = Vector2.zero;
+        rb2d.angularVelocity = 0;
+        
         collider.enabled = true;
+        
+        LeanTween.cancel(gameObject);
+        LeanTween.delayedCall(gameObject, 5, () => rangeEnemyAttack.ReleaseBullet(this));
+
+        
     }
 }

@@ -26,18 +26,20 @@ public class DropManger : MonoBehaviour
 
     private void Awake()
     {
-        Enemy.onPassedAway += EnemyPassedAwayCallback;
-
+        Enemy.onPassedAway     += EnemyPassedAwayCallback;
+        Enemy.onBossPassedAway += BossPassedAwayCallback;
+        
         Candy.onCollected += ReleaseCandy;
-        Cash.onCollected += ReleaseCash;
+        Cash.onCollected  += ReleaseCash;
     }
 
     private void OnDestroy()
     {
-        Enemy.onPassedAway -= EnemyPassedAwayCallback;
+        Enemy.onPassedAway     -= EnemyPassedAwayCallback;
+        Enemy.onBossPassedAway -= BossPassedAwayCallback;
 
         Candy.onCollected -= ReleaseCandy;
-        Cash.onCollected -= ReleaseCash;
+        Cash.onCollected  -= ReleaseCash;
     }
     
 
@@ -109,13 +111,22 @@ public class DropManger : MonoBehaviour
 
     }
 
+    private void BossPassedAwayCallback(Vector2 bossPosition)
+    {
+        DropChest(bossPosition);
+    }
+
     private void TryDropChest(Vector2 spawnPosition)
     {
         bool shouldSpawnChest = Random.Range(0, 101) <= chestDropChance;
 
         if (!shouldSpawnChest)
             return;
+        DropChest(spawnPosition);
+    }
 
+    private void DropChest(Vector2 spawnPosition)
+    {
         Instantiate(chestPrefab, spawnPosition, Quaternion.identity);
     }
 

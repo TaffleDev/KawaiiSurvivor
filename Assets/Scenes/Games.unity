@@ -8700,7 +8700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1861d6a161383e449b7583dcc5bf16da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeMagnitude: 0.1
+  shakeMagnitude: 0.08
   shakeDuration: 0.15
 --- !u!1 &534893902
 GameObject:
@@ -17191,7 +17191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8984442ff3410e04f8fbad1bf6b2227d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMaxHealth: 5
+  baseMaxHealth: 500
   healthSlider: {fileID: 465417983}
   healthText: {fileID: 1420586418}
 --- !u!114 &1058749958
@@ -36408,10 +36408,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 70814930}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 122.5, y: -45}
+  m_SizeDelta: {x: 75, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1220400441
 MonoBehaviour:
@@ -37183,7 +37183,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1242112066
 RectTransform:
   m_ObjectHideFlags: 0
@@ -45408,10 +45408,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 70814930}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 47.5, y: -45}
+  m_SizeDelta: {x: 75, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1743003785
 MonoBehaviour:
@@ -48729,24 +48729,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1058749956}
-  waveDuration: 15
+  waveDuration: 150
   waves:
   - name: Wave 00
     segments:
-    - tStartEnd: {x: 0, y: 33}
-      spawnFrequency: 5
-      prefab: {fileID: 5003160054477636266, guid: 3bdc8ed599f64aa41be12fc32b7573e8, type: 3}
-    - tStartEnd: {x: 33, y: 100}
-      spawnFrequency: 5
-      prefab: {fileID: 8284253562585545995, guid: b8ae0e9ce3c2d1543900e121c35cc26b, type: 3}
-  - name: Wave 01
-    segments:
-    - tStartEnd: {x: 0, y: 67}
-      spawnFrequency: 5
-      prefab: {fileID: 8284253562585545995, guid: b8ae0e9ce3c2d1543900e121c35cc26b, type: 3}
-    - tStartEnd: {x: 67.00001, y: 100}
-      spawnFrequency: 5
-      prefab: {fileID: 5003160054477636266, guid: 3bdc8ed599f64aa41be12fc32b7573e8, type: 3}
+    - tStartEnd: {x: 0, y: 0.1}
+      spawnFrequency: 1
+      prefab: {fileID: 6909545238665271503, guid: be3ee910fcad3654981d65ee4d0d52a3, type: 3}
+      spawnOnce: 1
 --- !u!114 &1904126712
 MonoBehaviour:
   m_ObjectHideFlags: 0
