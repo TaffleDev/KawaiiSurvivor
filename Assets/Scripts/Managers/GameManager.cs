@@ -10,6 +10,8 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    
+    [field: SerializeField] public bool UseInfiniteMap { get; private set; }
 
     [Header("Action")]
     public static Action onGamePaused;
@@ -22,6 +24,7 @@ public class GameManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+        
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -30,8 +33,6 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         SetGameState(GameState.MENU);
     }
-    
-    
 
     public void StartGame()            => SetGameState(GameState.GAME);
     public void StartWeaponSelection() => SetGameState(GameState.WEAPONSELECTION);

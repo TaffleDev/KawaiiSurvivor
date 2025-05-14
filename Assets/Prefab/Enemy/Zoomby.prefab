@@ -5822,5 +5822,5 @@ MonoBehaviour:
   healthBar: {fileID: 545554654984385654}
   healthText: {fileID: 6805044932654765198}
   animator: {fileID: 1130918000267674426}
-  maxIdleDuration: 2
+  maxIdleDuration: 3
   moveSpeed: 5
