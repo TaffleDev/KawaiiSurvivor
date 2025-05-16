@@ -86,12 +86,12 @@ public class Zoomby : Enemy
 
     private void SetIdleState()
     {
-        Debug.Log("Started Idle");
+        // Debug.Log("Started Idle");
 
         state = State.Idle;
         idleDuration = Random.Range(1f, maxIdleDuration);
 
-        Debug.Log("Timer value : " + timer);
+        // Debug.Log("Timer value : " + timer);
 
         animator.Play("Idle");
     }
@@ -109,12 +109,12 @@ public class Zoomby : Enemy
 
     private void StartMovingState()
     {
-        Debug.Log("Started Moving");
+        // Debug.Log("Started Moving");
 
         state = State.Moving;
         targetPosition = GetRandomPosition();
 
-        Debug.Log("Target Position : " + targetPosition);
+        // Debug.Log("Target Position : " + targetPosition);
 
         animator.Play("Move");
     }
@@ -129,7 +129,7 @@ public class Zoomby : Enemy
 
     private void StartAttackingState()
     {
-        Debug.Log("Started Attacking");
+        // Debug.Log("Started Attacking");
         state = State.Attacking;
         attackCounter = 0;
 

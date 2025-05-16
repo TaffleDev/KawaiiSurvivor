@@ -19,10 +19,11 @@ public class UIManager : MonoBehaviour, IGameStateListener
     [SerializeField] private GameObject restartConfirmationPanel;
     [SerializeField] private GameObject characterSelectionPanel;
     [SerializeField] private GameObject settingsPanel;
-
-    
     
     private List<GameObject> panels = new List<GameObject>();
+
+    [Header("Actions")] 
+    public static Action<Panel> OnPanelShown;
 
     private void Awake()
     {
@@ -98,6 +99,11 @@ public class UIManager : MonoBehaviour, IGameStateListener
             //This logic is the same as below
             p.SetActive(p == panel);
 
+            if (p == panel)
+            {
+                TryTriggerPanelShownAction(p);
+            }
+            
             /*
             if (p == panel)
                 p.SetActive(true);
@@ -114,13 +120,38 @@ public class UIManager : MonoBehaviour, IGameStateListener
     public void ShowRestartConfirmationPanel() => restartConfirmationPanel.SetActive(true);
     public void HideRestartConfirmationPanel() => restartConfirmationPanel.SetActive(false);
 
-    public void ShowCharacterSelectionPanel() => characterSelectionPanel.SetActive(true);
-    public void HideCharacterSelectionPanel() => characterSelectionPanel.SetActive(false);
+    public void ShowCharacterSelectionPanel()
+    {
+        characterSelectionPanel.SetActive(true);
+        TryTriggerPanelShownAction(characterSelectionPanel);
+        menuPanel.SetActive(false);
 
-    public void ShowSettings() => settingsPanel.SetActive(true);
-    public void HideSettings() => settingsPanel.SetActive(false);
+    } 
+    public void HideCharacterSelectionPanel()
+    {
+        characterSelectionPanel.SetActive(false);
+        menuPanel.SetActive(true);
+        TryTriggerPanelShownAction(menuPanel);
+    }
 
-    
-    
-    
+    public void ShowSettings()
+    {
+        settingsPanel.SetActive(true);
+        TryTriggerPanelShownAction(settingsPanel);
+        menuPanel.SetActive(false);
+    }
+
+    public void HideSettings()
+    {
+        settingsPanel.SetActive(false);
+        menuPanel.SetActive(true);
+        TryTriggerPanelShownAction(menuPanel);
+    }
+
+
+    private void TryTriggerPanelShownAction(GameObject panelObject)
+    {
+        if (panelObject.TryGetComponent(out Panel panelComponent))
+            OnPanelShown?.Invoke(panelComponent);
+    }
 }

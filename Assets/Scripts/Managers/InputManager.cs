@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
@@ -7,9 +8,15 @@ public class InputManager : MonoBehaviour
 
     [Header("Elements")]
     [SerializeField] private MobileJoystick playerJoystick;
-
+    [SerializeField] private InputActionAsset actions;
+    
+    
     [Header("Settings")]
     [SerializeField] private bool forceHandHeld;
+
+    [Header("Input Actions")]
+    private InputAction move;
+    private InputAction pauseAction;
     
     private void Awake()
     {
@@ -21,6 +28,17 @@ public class InputManager : MonoBehaviour
         
         if (SystemInfo.deviceType == DeviceType.Desktop && !forceHandHeld)
             playerJoystick.gameObject.SetActive(false);
+        
+        move = actions.FindAction("Move");
+        pauseAction = actions.FindAction("Pause");
+
+        pauseAction.performed += PauseActionCallback;
+
+    }
+
+    private void PauseActionCallback(InputAction.CallbackContext obj)
+    {
+        GameManager.instance.PauseButtonCallBack();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -46,6 +64,9 @@ public class InputManager : MonoBehaviour
 
     private Vector2 GetDeskStopMoveVector()
     {
-        return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        return move.ReadValue<Vector2>();
+
+
+        // return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
 }

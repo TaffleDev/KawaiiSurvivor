@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    private GameState gameState;
+    
     [Header("Action")]
     public static Action onGamePaused;
     public static Action onGameResumed;
@@ -39,6 +41,9 @@ public class GameManager : MonoBehaviour
 
     public void SetGameState(GameState gameState)
     {
+        this.gameState = gameState;
+        
+        
         IEnumerable<IGameStateListener> gameStateListeners = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IGameStateListener>();
 
         foreach ( IGameStateListener gameStateListener in gameStateListeners)
@@ -81,6 +86,11 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         ManageGameover();
+    }
+
+    public bool IsGameState()
+    {
+        return gameState == GameState.GAME;
     }
     
 }

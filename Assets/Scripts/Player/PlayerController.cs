@@ -16,11 +16,16 @@ public class PlayerController : MonoBehaviour, IPlayerStatsDependency
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        rb2d.linearVelocity = Vector2.right;
     }
         
     void FixedUpdate()
     {
+        if (!GameManager.instance.IsGameState())
+        {
+            rb2d.linearVelocity = Vector2.zero;
+            return;
+        }
+        
         rb2d.linearVelocity = InputManager.instance.GetMoveVector() * moveSpeed * Time.deltaTime;
 
     }

@@ -220,7 +220,7 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
     private void ChestCollectedCallBack()
     {
         chestsCollected++;
-        Debug.Log($" We now have {chestsCollected} chests!");
+        // Debug.Log($" We now have {chestsCollected} chests!");
     }
 
     public bool HasCollectedChests() => chestsCollected > 0;
