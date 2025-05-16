@@ -5,16 +5,12 @@ public class PlayerController : MonoBehaviour, IPlayerStatsDependency
 {
 
     [Header("Elements")]
-    [SerializeField] MobileJoystick playerJoystick;
     Rigidbody2D rb2d;
 
 
     [Header("Settings")]
     [SerializeField] float baseMoveSpeed;
     float moveSpeed;
-    
-
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,7 +21,7 @@ public class PlayerController : MonoBehaviour, IPlayerStatsDependency
         
     void FixedUpdate()
     {
-        rb2d.linearVelocity = playerJoystick.GetMoveVector() * moveSpeed * Time.deltaTime;
+        rb2d.linearVelocity = InputManager.instance.GetMoveVector() * moveSpeed * Time.deltaTime;
 
     }
 

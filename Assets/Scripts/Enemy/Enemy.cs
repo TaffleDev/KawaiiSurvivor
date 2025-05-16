@@ -13,7 +13,7 @@ public abstract class Enemy : MonoBehaviour
     [Header("Elements")]
     protected Player player;
 
-    [Header("Spawn Dequence Related")]
+    [Header("Spawn Sequence Related")]
     [SerializeField] protected SpriteRenderer spriteRenderer;
     [SerializeField] protected SpriteRenderer spawnIndicator;
     [SerializeField] protected Collider2D spriteCollider;

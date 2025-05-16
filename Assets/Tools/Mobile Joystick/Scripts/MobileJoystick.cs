@@ -67,10 +67,13 @@ public class MobileJoystick : MonoBehaviour
         float realWidth = absoluteWidth * canvasScale;
 
         moveMagnitude = Mathf.Min(moveMagnitude, realWidth);
-
-        move = direction.normalized * moveMagnitude;
         
-        Vector3 targetPosition = clickedPosition + move;
+        move = direction.normalized;
+        
+        Vector3 knopMove = move * moveMagnitude;
+        
+        
+        Vector3 targetPosition = clickedPosition + knopMove;
 
         joystickKnob.position = targetPosition;
 
@@ -80,7 +83,9 @@ public class MobileJoystick : MonoBehaviour
 
     public Vector3 GetMoveVector()
     {
-        float canvasScale = GetComponentInParent<Canvas>().GetComponent<RectTransform>().localScale.x;
-        return move / canvasScale;
+        return move;
+        
+        // float canvasScale = GetComponentInParent<Canvas>().GetComponent<RectTransform>().localScale.x;
+        // return move / canvasScale;
     }
 }
