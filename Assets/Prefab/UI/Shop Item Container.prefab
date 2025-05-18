@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 1986345172840420793}
   - component: {fileID: 8663277038459686975}
   - component: {fileID: 1796779513947976971}
+  - component: {fileID: 125980406511550677}
   m_Layer: 5
   m_Name: Lock Button
   m_TagString: Untagged
@@ -265,6 +266,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &125980406511550677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883283556030086190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a18aba14d0b66f42a30d3e7319befe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1945522623932110729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1147,6 +1160,7 @@ GameObject:
   - component: {fileID: 3614846889761332579}
   - component: {fileID: 2436089021197960640}
   - component: {fileID: 4690081902074905921}
+  - component: {fileID: 4358492243984855374}
   m_Layer: 5
   m_Name: Shop Item Container
   m_TagString: Untagged
@@ -1281,6 +1295,18 @@ MonoBehaviour:
   lockImage: {fileID: 8663277038459686975}
   lockedSprite: {fileID: -5620155193319629329, guid: 5bf7f0050ae64884fb73a265bed13e87, type: 3}
   unlockedSprite: {fileID: 7451771499657765821, guid: e6e0c4110e86bfe48812aeb60cdf44fc, type: 3}
+--- !u!114 &4358492243984855374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5893595021252347217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a18aba14d0b66f42a30d3e7319befe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6718313172930793129
 GameObject:
   m_ObjectHideFlags: 0

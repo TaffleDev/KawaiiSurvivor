@@ -26,7 +26,8 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
     [Header("Settings")]
     private int chestsCollected;
 
-
+    [Header("Actions")]
+    public static Action<GameObject> onConfigured;
     private void Awake()
     {
         if (instance == null)
@@ -130,6 +131,8 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
             upgradeContainers[i].Button.onClick.AddListener(() => BonusSelectedCallback());
 
         }
+        
+        onConfigured?.Invoke(upgradeContainers[0].gameObject);
     }
 
     private void BonusSelectedCallback()

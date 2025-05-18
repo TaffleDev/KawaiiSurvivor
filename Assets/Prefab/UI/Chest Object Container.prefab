@@ -383,6 +383,7 @@ GameObject:
   - component: {fileID: 5902330463078876374}
   - component: {fileID: 1865325346275508135}
   - component: {fileID: 7271080343346927475}
+  - component: {fileID: 1732665080080429626}
   m_Layer: 5
   m_Name: Take Button
   m_TagString: Untagged
@@ -493,6 +494,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1732665080080429626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2595957224868215505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a18aba14d0b66f42a30d3e7319befe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2670980225344717732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,7 +1625,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6461221056878312646}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -2061,6 +2074,7 @@ GameObject:
   - component: {fileID: 6746462744098509073}
   - component: {fileID: 6772855371177923935}
   - component: {fileID: 3267084167205183903}
+  - component: {fileID: 8011799387792658722}
   m_Layer: 5
   m_Name: Recycle button
   m_TagString: Untagged
@@ -2171,3 +2185,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8011799387792658722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9097551677037007347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a18aba14d0b66f42a30d3e7319befe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

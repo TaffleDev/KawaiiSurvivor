@@ -17,6 +17,14 @@ public class InputManager : MonoBehaviour
     [Header("Input Actions")]
     private InputAction move;
     private InputAction pauseAction;
+    private InputAction cancelAction;
+    private InputAction lockAction;
+    private InputAction navigateScrollAction;
+
+    [Header("Actions")]
+    public static Action onCancelAction;
+    public static Action onLockAction;
+    public static Action<float> onNavigateScrollAction;
     
     private void Awake()
     {
@@ -31,42 +39,62 @@ public class InputManager : MonoBehaviour
         
         move = actions.FindAction("Move");
         pauseAction = actions.FindAction("Pause");
+        cancelAction = actions.FindAction("Cancel");
+        lockAction = actions.FindAction("Lock");
+        navigateScrollAction = actions.FindAction("Navigate Scroll");
 
         pauseAction.performed += PauseActionCallback;
+        cancelAction.performed += CancelActionCallback;
+        lockAction.performed += LockActionCallback;
+        navigateScrollAction.performed += NavigateScrollActionCallback; 
 
     }
+    private void OnDestroy()
+    {
+        pauseAction.performed -= PauseActionCallback;
+        cancelAction.performed -= CancelActionCallback;
+        lockAction.performed -= LockActionCallback;
+        navigateScrollAction.performed -= NavigateScrollActionCallback;
+    }
+    
+    
 
     private void PauseActionCallback(InputAction.CallbackContext obj)
     {
         GameManager.instance.PauseButtonCallBack();
     }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    
+    private void CancelActionCallback(InputAction.CallbackContext obj)
     {
-        
+        onCancelAction?.Invoke();
+    }
+    
+    private void LockActionCallback(InputAction.CallbackContext obj)
+    {
+        onLockAction?.Invoke();
+    }
+    
+
+    private void NavigateScrollActionCallback(InputAction.CallbackContext rightStick)
+    {
+        onNavigateScrollAction?.Invoke(rightStick.ReadValue<float>());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
+    
     public Vector2 GetMoveVector()
     {
         if (SystemInfo.deviceType == DeviceType.Desktop && !forceHandHeld)
             return GetDeskStopMoveVector();
         else 
             return playerJoystick.GetMoveVector();
-        
     }
 
     private Vector2 GetDeskStopMoveVector()
     {
         return move.ReadValue<Vector2>();
-
-
         // return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
+    
+    
 }

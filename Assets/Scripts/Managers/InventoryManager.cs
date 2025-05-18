@@ -1,8 +1,10 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour, IGameStateListener
 {
+    public static InventoryManager instance;
     
     [Header("Player Components")]
     [SerializeField] private PlayerWeapons playerWeapons;
@@ -15,8 +17,18 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
     [SerializeField] private ShopManagerUI shopManagerUI;
     [SerializeField] private InventoryItemInfo itemInfo;
 
+    [Header("Actions")]
+    public static Action<Button> onItemInfoOpenedAction;
+    public static Action<GameObject> OnItemRecycledAction;
+    public static Action<GameObject> onWeaponMergedAction;
+    
     private void Awake()
     {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+        
         ShopManager.onItemPurchased += ItemPurchasedCallBack;
         WeaponMerger.onMerge += WeaponMergedCallback;
 
@@ -75,10 +87,13 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
 
     private void ShowItemInfo(InventoryItemContainer container)
     {
+        
         if (container.Weapon != null)
             ShowWeaponInfo(container.Weapon, container.Index);
         else 
             ShowObjectInfo(container.ObjectData);
+        
+        onItemInfoOpenedAction?.Invoke(itemInfo.RecycleButton);
     }
     
     
@@ -121,6 +136,8 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
         Configure();
         
         shopManagerUI.HideItemInfo();
+        
+        OnItemRecycledAction?.Invoke(GetFirstItem());
     }
 
     private void ItemPurchasedCallBack() => Configure();
@@ -129,6 +146,16 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
     {
         Configure();
         itemInfo.Configure(mergedWeapon);
+        
+        onWeaponMergedAction?.Invoke(itemInfo.RecycleButton.gameObject);
+    }
+
+    public GameObject GetFirstItem()
+    {
+        if (inventoryItemsParent.childCount > 0)
+            return inventoryItemsParent.GetChild(0).gameObject;
+        
+        return null;
     }
 
 }

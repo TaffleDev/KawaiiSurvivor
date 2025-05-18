@@ -312,6 +312,7 @@ GameObject:
   - component: {fileID: 9054436592039829100}
   - component: {fileID: 1218448680577654355}
   - component: {fileID: 5596833704111551294}
+  - component: {fileID: 7093767522230480590}
   m_Layer: 5
   m_Name: Upgrade container Button
   m_TagString: Untagged
@@ -438,6 +439,18 @@ MonoBehaviour:
   upgradeNameText: {fileID: 4498815979842109433}
   upgradeValueText: {fileID: 7494838206550935897}
   <Button>k__BackingField: {fileID: 1218448680577654355}
+--- !u!114 &7093767522230480590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3239191440240215044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a18aba14d0b66f42a30d3e7319befe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3403753828742407399
 GameObject:
   m_ObjectHideFlags: 0

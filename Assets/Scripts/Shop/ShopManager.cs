@@ -23,19 +23,34 @@ public class ShopManager : MonoBehaviour, IGameStateListener
     [SerializeField] private int rerollPrice;
     [SerializeField] private TextMeshProUGUI rerollPriceText;
 
+    [Header("Settings")]
+    [SerializeField] private float scrollSpeed;
+    
     [Header("Actions")] 
     public static Action onItemPurchased;
+    public static Action onRerollDisabled;
     
     private void Awake()
     {
         ShopItemContainer.onPurchased += ItemPurchasedcallback;
+        
         CurrencyManager.onUpdated += CurrencyUpdatedCallBack;
+
+        InputManager.onNavigateScrollAction += ScrollViewCallback;
     }
 
     private void OnDestroy()
     {
         ShopItemContainer.onPurchased -= ItemPurchasedcallback;
-        CurrencyManager.onUpdated -= CurrencyUpdatedCallBack;        
+        
+        CurrencyManager.onUpdated -= CurrencyUpdatedCallBack;      
+        
+        InputManager.onNavigateScrollAction -= ScrollViewCallback;
+    }
+
+    private void ScrollViewCallback(float xValue)
+    {
+        containersParent.GetComponent<RectTransform>().anchoredPosition -= xValue * scrollSpeed * Time.deltaTime * Vector2.right;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -113,11 +128,11 @@ public class ShopManager : MonoBehaviour, IGameStateListener
 
     private void UpdateRerollVisuals()
     {
-
-
         rerollPriceText.text = rerollPrice.ToString();
         rerollButton.interactable = CurrencyManager.instance.HasEnoughCurrency(rerollPrice);
-
+        
+        if (!rerollButton.interactable)
+            onRerollDisabled?.Invoke();
     }
 
 

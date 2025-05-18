@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using System;
 
 public class ChestObjectContainer : MonoBehaviour
 {
@@ -22,7 +23,9 @@ public class ChestObjectContainer : MonoBehaviour
     [SerializeField] private Image[] levelDependedImages;
     [SerializeField] private Image outline;
 
-
+    [Header("Actions")]
+    public static Action<GameObject> onSpawned;
+    
     public void Configure(ObjectDataSO objectData)
     {
         icon.sprite = objectData.Icon;
@@ -38,6 +41,8 @@ public class ChestObjectContainer : MonoBehaviour
             image.color = imageColor;
 
         ConfigureStatContainers(objectData.baseStats);
+        
+        onSpawned?.Invoke(TakeButton.gameObject);
 
     }
 

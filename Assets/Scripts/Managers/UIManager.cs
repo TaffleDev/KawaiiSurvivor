@@ -114,11 +114,36 @@ public class UIManager : MonoBehaviour, IGameStateListener
     }
     
     
-    private void GamePausedCallBack() => pausePanel.SetActive(true);
-    private void GameResumedCallback() => pausePanel.SetActive(false);
+    private void GamePausedCallBack()
+    {
+        pausePanel.SetActive(true);
+        
+        TryTriggerPanelShownAction(pausePanel);
 
-    public void ShowRestartConfirmationPanel() => restartConfirmationPanel.SetActive(true);
-    public void HideRestartConfirmationPanel() => restartConfirmationPanel.SetActive(false);
+        SetPanelInteractAbility(gamePanel, false);
+    }
+
+    private void GameResumedCallback()
+    { 
+        pausePanel.SetActive(false);
+        SetPanelInteractAbility(gamePanel, true);
+
+    }
+    public void ShowRestartConfirmationPanel()
+    {
+        restartConfirmationPanel.SetActive(true);
+        TryTriggerPanelShownAction(restartConfirmationPanel);
+        SetPanelInteractAbility(gamePanel, false);
+    }
+
+    public void HideRestartConfirmationPanel()
+    {
+        restartConfirmationPanel.SetActive(false);
+        
+        TryTriggerPanelShownAction(pausePanel);
+        SetPanelInteractAbility(gamePanel, true);
+
+    }
 
     public void ShowCharacterSelectionPanel()
     {
@@ -153,5 +178,11 @@ public class UIManager : MonoBehaviour, IGameStateListener
     {
         if (panelObject.TryGetComponent(out Panel panelComponent))
             OnPanelShown?.Invoke(panelComponent);
+    }
+
+    public static void SetPanelInteractAbility(GameObject panelObject, bool interactable)
+    {
+        if (panelObject.TryGetComponent(out CanvasGroup cg))
+            cg.interactable = interactable;
     }
 }
