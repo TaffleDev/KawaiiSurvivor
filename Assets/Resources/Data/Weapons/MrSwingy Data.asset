@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: MrSwingy
   <Sprite>k__BackingField: {fileID: 21300000, guid: dac71ecc77ba99d4f8fcad927f8b473c, type: 3}
-  <PurchasePrice>k__BackingField: 70
-  <RecyclePrice>k__BackingField: 50
+  <PurchasePrice>k__BackingField: 9
+  <RecyclePrice>k__BackingField: 9
   <Prefab>k__BackingField: {fileID: 2292699310462020479, guid: f31bb37c144e0914b9a5b824144312e3, type: 3}
   <AttackSound>k__BackingField: {fileID: 8300000, guid: 2afdf042acaa39c49b939d00655ebe62, type: 3}
   <AnimatorOverride>k__BackingField: {fileID: 22100000, guid: 2d9059bd9bc76054397dbdee74fd38f8, type: 2}

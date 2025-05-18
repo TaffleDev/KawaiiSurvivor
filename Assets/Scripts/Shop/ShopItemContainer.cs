@@ -67,10 +67,9 @@ public class ShopItemContainer : MonoBehaviour
 
         icon.sprite = weaponData.Sprite;
         nameText.text = weaponData.name + $" (lvl {level + 1})";
+        priceText.text = weaponData.PurchasePrice.ToString();
 
         int weaponPrice = WeaponStatsCalculator.GetPurchasePrice(weaponData, level);
-
-
 
         Color imageColor = ColourHolder.GetColour(level);
         nameText.color = imageColor;

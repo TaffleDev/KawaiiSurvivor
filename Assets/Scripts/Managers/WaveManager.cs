@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-[RequireComponent (typeof(WaveManagerUI))]
+[RequireComponent(typeof(WaveManagerUI))]
 public class WaveManager : MonoBehaviour, IGameStateListener
 {
-
     [Header("Elements")]
     [SerializeField] private Player player;
     private WaveManagerUI ui;
 
     [Header("Settings")]
-    [SerializeField] private float waveDuration;
+    [SerializeField] private float baseWaveDuration;
+    [SerializeField] private float normalSpawnFrequencyMultiplier = 1f;
+    [SerializeField] private float hyperSpawnFrequencyMultiplier = 2f;
+    private float waveDuration;
     private float timer;
     private bool isTimerOn;
     private int currentWaveIndex;
-
-
 
     [Header("Waves")]
     [SerializeField] private Wave[] waves;
@@ -28,13 +28,10 @@ public class WaveManager : MonoBehaviour, IGameStateListener
         ui = GetComponent<WaveManagerUI>();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!isTimerOn)
@@ -49,7 +46,6 @@ public class WaveManager : MonoBehaviour, IGameStateListener
         }
         else
             StartWaveTransition();
-
     }
 
     private void StartWave(int waveIndex)
@@ -61,12 +57,12 @@ public class WaveManager : MonoBehaviour, IGameStateListener
         foreach (WaveSegment segment in waves[waveIndex].segments)
             localCounters.Add(0);
 
+        waveDuration = baseWaveDuration + Random.Range(1f, 5f); // Add 1-5 sec randomly
 
         timer = 0;
         isTimerOn = true;
     }
 
-    // Watch Video 94 again for explanation
     private void ManageCurrentWave()
     {
         Wave currentWave = waves[currentWaveIndex];
@@ -78,13 +74,16 @@ public class WaveManager : MonoBehaviour, IGameStateListener
             float tStart = segment.tStartEnd.x / 100 * waveDuration;
             float tEnd = segment.tStartEnd.y / 100 * waveDuration;
 
-
             if (timer < tStart || timer > tEnd)
                 continue;
 
             float timeSinceSegmentStart = timer - tStart;
-            float spawnDelay = 1f / segment.spawnFrequency;
+            
+            float frequency = segment.spawnFrequency;
+            float multiplier = waves[currentWaveIndex].isHyperWave ? hyperSpawnFrequencyMultiplier : normalSpawnFrequencyMultiplier;
+            frequency *= multiplier; // Hyper wave spawns enemies twice as fast (you can tweak this)
 
+            float spawnDelay = 1f / frequency;
 
             if (timeSinceSegmentStart / spawnDelay > localCounters[i])
             {
@@ -118,7 +117,6 @@ public class WaveManager : MonoBehaviour, IGameStateListener
         {
             GameManager.instance.WaveCompletedCallback();
         }
-        
     }
 
     private void StartNextWave()
@@ -164,6 +162,7 @@ public struct Wave
 {
     public string name;
     public List<WaveSegment> segments;
+    public bool isHyperWave; // NEW: Toggle for more intense waves
 }
 
 [System.Serializable]

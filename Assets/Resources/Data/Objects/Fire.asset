@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Fire
   <Icon>k__BackingField: {fileID: 1098286324429101383, guid: d324cc73e0e562f4eb709a519e9c6bfa, type: 3}
-  <Price>k__BackingField: 90
+  <Price>k__BackingField: 40
   <RecyclePrice>k__BackingField: 55
   <Rarity>k__BackingField: 0
   statDatas:

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Ouchie
   <Sprite>k__BackingField: {fileID: 6766118796701390678, guid: 05c36890be088704da339d14a151f6b2, type: 3}
-  <PurchasePrice>k__BackingField: 70
-  <RecyclePrice>k__BackingField: 50
+  <PurchasePrice>k__BackingField: 5
+  <RecyclePrice>k__BackingField: 5
   <Prefab>k__BackingField: {fileID: 2292699310462020479, guid: 9894be337ddd521458dfe97ac4361172, type: 3}
   <AttackSound>k__BackingField: {fileID: 8300000, guid: c673fb9cf3e24d443b75f2de39c6fb01, type: 3}
   <AnimatorOverride>k__BackingField: {fileID: 0}

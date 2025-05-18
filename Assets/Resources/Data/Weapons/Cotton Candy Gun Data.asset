@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Cotton Candy Gun
   <Sprite>k__BackingField: {fileID: 21300000, guid: 84f07b27a38eda042b5858622cbeaf52, type: 3}
-  <PurchasePrice>k__BackingField: 125
-  <RecyclePrice>k__BackingField: 100
+  <PurchasePrice>k__BackingField: 10
+  <RecyclePrice>k__BackingField: 10
   <Prefab>k__BackingField: {fileID: 2325611508631366115, guid: acacf7e2da4ecc94297483b41f43692d, type: 3}
   <AttackSound>k__BackingField: {fileID: 8300000, guid: f7bdbeca28170df478ac865f6729a5e2, type: 3}
+  <AnimatorOverride>k__BackingField: {fileID: 0}
   attack: 10
   attackSpeed: 5
   criticalChance: 5

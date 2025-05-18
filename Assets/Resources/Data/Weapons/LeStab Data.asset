@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: LeStab
   <Sprite>k__BackingField: {fileID: 21300000, guid: e260fcef0dd7ae847bb70df83762c267, type: 3}
-  <PurchasePrice>k__BackingField: 70
-  <RecyclePrice>k__BackingField: 50
+  <PurchasePrice>k__BackingField: 7
+  <RecyclePrice>k__BackingField: 7
   <Prefab>k__BackingField: {fileID: 2292699310462020479, guid: 7142bdc20a42d8342b3e721b6c6b559a, type: 3}
   <AttackSound>k__BackingField: {fileID: 8300000, guid: c673fb9cf3e24d443b75f2de39c6fb01, type: 3}
   <AnimatorOverride>k__BackingField: {fileID: 22100000, guid: 2baef1034613e8a45b42b3de10d550dc, type: 2}
